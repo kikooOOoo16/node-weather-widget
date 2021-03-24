@@ -91,6 +91,7 @@ getWeatherIconClassName = (weather_desc, time) => {
             case 'Overcast':
                 return 'wi-day-sunny-overcast';
             case 'Mist':
+            case 'Shallow Fog, Mist':
                 return 'wi-day-fog';
             case 'Light Rain':
             case 'Light drizzle':
@@ -119,6 +120,7 @@ getWeatherIconClassName = (weather_desc, time) => {
             case 'Overcast':
                 return 'wi-night-alt-partly-cloudy';
             case 'Mist':
+            case 'Shallow Fog, Mist':
                 return 'wi-night-fog';
             case 'Light Rain':
                 return 'wi-night-alt-rain';
