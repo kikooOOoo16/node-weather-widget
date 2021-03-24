@@ -29,7 +29,7 @@ weatherForm.addEventListener('submit', (e) => {
     weather_widget.classList.add('hide');
     weather_error.classList.add('hide');
 
-    fetch(`http://localhost:3000/weather?address=${searchInput.value}`)
+    fetch(`/weather?address=${searchInput.value}`)
         .then(result => {
             result.json()
                 .then(data => {
@@ -78,7 +78,7 @@ getWeatherIconClassName = (weather_desc, time) => {
     currentTime.setHours(parseInt(hoursAndMinutes[0]), parseInt(hoursAndMinutes[1]));
     duskTime.setHours(19, 30);
 
-    if (currentTime <= duskTime) {
+    if (currentTime <= duskTime && currentTime >= new Date('05:00')) {
         switch (weather_desc) {
             case 'Clear':
                 return 'wi-day-sunny';
@@ -101,10 +101,10 @@ getWeatherIconClassName = (weather_desc, time) => {
             case 'Patchy rain possible':
                 return 'wi-day-sprinkle';
             case 'Patchy snow possible':
-                return 'wi-day-snow';
+            case 'Patchy moderate snow':
             case 'Snow Shower':
-                return 'wi-day-snow';
             case 'Heavy snow':
+            case 'Moderate snow':
                 return 'wi-day-snow';
             case 'Light freezing rain':
                 return 'wi-day-rain-mix';
@@ -129,9 +129,10 @@ getWeatherIconClassName = (weather_desc, time) => {
             case 'Patchy rain possible':
                 return 'wi-night-alt-sprinkle';
             case 'Patchy snow possible':
-                return 'wi-night-alt-snow-wind';
+            case 'Patchy moderate snow':
             case 'Snow Shower':
                 return 'wi-night-alt-snow-wind';
+            case 'Moderate snow':
             case 'Heavy snow':
                 return 'wi-snow-wind';
             case 'Light freezing rain':
