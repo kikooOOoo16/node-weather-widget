@@ -98,9 +98,11 @@ getWeatherIconClassName = (weather_desc, time) => {
             case 'Light Rain':
             case 'Light rain shower':
             case 'Light drizzle':
+            case 'Heavy rain':
             case 'Moderate or heavy rain shower':
                 return 'wi-day-rain';
             case 'Patchy rain possible':
+            case 'Shower In Vicinity':
                 return 'wi-day-sprinkle';
             case 'Patchy snow possible':
             case 'Patchy moderate snow':
@@ -127,9 +129,11 @@ getWeatherIconClassName = (weather_desc, time) => {
                 return 'wi-night-fog';
             case 'Light Rain':
             case 'Light rain shower':
+            case 'Heavy rain':
             case 'Moderate or heavy rain shower':
                 return 'wi-night-alt-rain';
             case 'Patchy rain possible':
+            case 'Shower In Vicinity':
                 return 'wi-night-alt-sprinkle';
             case 'Patchy snow possible':
             case 'Patchy moderate snow':
