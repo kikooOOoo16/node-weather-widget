@@ -32,7 +32,7 @@ weatherForm.addEventListener('submit', (e) => {
     fetch(`/weather?address=${searchInput.value}`)
         .then(result => {
             result.json()
-                .then(data => {
+                .then(async data => {
                     if (data.errorMessage) {
                         weather_error.classList.remove('hide');
                         weather_error.textContent = data.errorMessage;
@@ -47,7 +47,7 @@ weatherForm.addEventListener('submit', (e) => {
                         if (weather_icon.classList.length === 2) {
                             weather_icon.classList.remove(weather_icon.classList[1]);
                         }
-                        weather_icon.classList.add(getWeatherIconClassName(data.weather_descriptions, dateArr[1]))
+                        await weather_icon.classList.add(getWeatherIconClassName(data.weather_descriptions, dateArr[1]))
 
                         // setup weather widget text content
                         weather_location.textContent =`${data.country} ${data.name}`;
@@ -72,20 +72,20 @@ weatherForm.addEventListener('submit', (e) => {
 getWeatherIconClassName = (weather_desc, time) => {
     // setup time comparison to determine if its night or day
     let duskTime = new Date();
+    let morningTime = new Date();
     let currentTime = new Date();
     const hoursAndMinutes = time.split(':');
 
     currentTime.setHours(parseInt(hoursAndMinutes[0]), parseInt(hoursAndMinutes[1]));
     duskTime.setHours(19, 30);
+    morningTime.setHours(5,0);
 
-    if (currentTime <= duskTime && currentTime >= new Date('05:00')) {
+    if (currentTime <= duskTime && currentTime >= morningTime) {
         switch (weather_desc) {
             case 'Clear':
-                return 'wi-day-sunny';
             case 'Sunny':
                 return 'wi-day-sunny';
             case 'Cloudy':
-                return 'wi-day-cloudy';
             case 'Partly cloudy':
                 return 'wi-day-cloudy';
             case 'Overcast':
@@ -94,8 +94,8 @@ getWeatherIconClassName = (weather_desc, time) => {
             case 'Shallow Fog, Mist':
                 return 'wi-day-fog';
             case 'Light Rain':
+            case 'Light rain shower':
             case 'Light drizzle':
-                return 'wi-day-rain';
             case 'Moderate or heavy rain shower':
                 return 'wi-day-rain';
             case 'Patchy rain possible':
@@ -114,7 +114,6 @@ getWeatherIconClassName = (weather_desc, time) => {
             case 'Clear':
                 return 'wi-night-clear';
             case 'Cloudy':
-                return 'wi-night-cloudy';
             case 'Partly cloudy':
                 return 'wi-night-cloudy';
             case 'Overcast':
@@ -123,7 +122,7 @@ getWeatherIconClassName = (weather_desc, time) => {
             case 'Shallow Fog, Mist':
                 return 'wi-night-fog';
             case 'Light Rain':
-                return 'wi-night-alt-rain';
+            case 'Light rain shower':
             case 'Moderate or heavy rain shower':
                 return 'wi-night-alt-rain';
             case 'Patchy rain possible':
