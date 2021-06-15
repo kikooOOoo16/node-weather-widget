@@ -47,7 +47,7 @@ weatherForm.addEventListener('submit', (e) => {
                         if (weather_icon.classList.length === 2) {
                             weather_icon.classList.remove(weather_icon.classList[1]);
                         }
-                        await weather_icon.classList.add(getWeatherIconClassName(data.weather_descriptions, dateArr[1]))
+                        await weather_icon.classList.add(getWeatherIconClassName(data.weather_descriptions, dateArr[1]));
 
                         // setup weather widget text content
                         weather_location.textContent =`${data.country} ${data.name}`;
@@ -67,7 +67,7 @@ weatherForm.addEventListener('submit', (e) => {
                     loadingMessage.classList.toggle('hide');
                 });
         });
-})
+});
 
 getWeatherIconClassName = (weather_desc, time) => {
     // setup time comparison to determine if its night or day
@@ -80,69 +80,73 @@ getWeatherIconClassName = (weather_desc, time) => {
     duskTime.setHours(19, 30);
     morningTime.setHours(5,0);
 
+    weather_desc = weather_desc.toLowerCase();
+
     if (currentTime <= duskTime && currentTime >= morningTime) {
         switch (weather_desc) {
-            case 'Clear':
-            case 'Sunny':
+            case 'clear':
+            case 'sunny':
                 return 'wi-day-sunny';
-            case 'Cloudy':
-            case 'Partly cloudy':
+            case 'cloudy':
+            case 'partly cloudy':
                 return 'wi-day-cloudy';
-            case 'Overcast':
+            case 'overcast':
                 return 'wi-day-sunny-overcast';
-            case 'Mist':
-            case 'Haze':
-            case 'Fog':
-            case 'Shallow Fog':
+            case 'mist':
+            case 'haze':
+            case 'fog':
+            case 'shallow fog':
                 return 'wi-day-fog';
-            case 'Light Rain':
-            case 'Light rain shower':
-            case 'Light drizzle':
-            case 'Heavy rain':
-            case 'Moderate or heavy rain shower':
+            case 'light rain':
+            case 'light rain shower':
+            case 'light drizzle':
+            case 'heavy rain':
+            case 'moderate or heavy rain shower':
+            case 'light drizzle and rain, rain shower':
                 return 'wi-day-rain';
-            case 'Patchy rain possible':
-            case 'Shower In Vicinity':
+            case 'patchy rain possible':
+            case 'shower in vicinity':
                 return 'wi-day-sprinkle';
-            case 'Patchy snow possible':
-            case 'Patchy moderate snow':
-            case 'Snow Shower':
-            case 'Heavy snow':
-            case 'Moderate snow':
+            case 'patchy snow possible':
+            case 'patchy moderate snow':
+            case 'snow Shower':
+            case 'heavy snow':
+            case 'moderate snow':
                 return 'wi-day-snow';
-            case 'Light freezing rain':
+            case 'light freezing rain':
                 return 'wi-day-rain-mix';
         }
     } else {
         switch (weather_desc) {
-            case 'Clear':
+            case 'clear':
                 return 'wi-night-clear';
-            case 'Cloudy':
-            case 'Partly cloudy':
+            case 'cloudy':
+            case 'partly cloudy':
                 return 'wi-night-cloudy';
-            case 'Overcast':
+            case 'overcast':
                 return 'wi-night-alt-partly-cloudy';
-            case 'Mist':
-            case 'Fog':
-            case 'Haze':
-            case 'Shallow Fog':
+            case 'mist':
+            case 'fog':
+            case 'haze':
+            case 'shallow fog':
                 return 'wi-night-fog';
-            case 'Light Rain':
-            case 'Light rain shower':
-            case 'Heavy rain':
-            case 'Moderate or heavy rain shower':
+            case 'light Rain':
+            case 'light rain shower':
+            case 'heavy rain':
+            case 'moderate or heavy rain shower':
                 return 'wi-night-alt-rain';
-            case 'Patchy rain possible':
-            case 'Shower In Vicinity':
+            case 'patchy rain possible':
+            case 'shower In Vicinity':
+            case 'light drizzle and rain, rain shower':
                 return 'wi-night-alt-sprinkle';
-            case 'Patchy snow possible':
-            case 'Patchy moderate snow':
-            case 'Snow Shower':
+            case 'patchy snow possible':
+            case 'patchy moderate snow':
+            case 'snow shower':
                 return 'wi-night-alt-snow-wind';
-            case 'Moderate snow':
-            case 'Heavy snow':
+            case 'moderate snow':
+            case 'heavy snow':
                 return 'wi-snow-wind';
-            case 'Light freezing rain':
+            case 'light freezing rain':
                 return 'wi-night-rain-mix';
         }
     }
